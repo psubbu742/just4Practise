@@ -7,7 +7,7 @@
 	
 	<body>
 	<div id="wrapper">
-		<h1>Example of fetching data from Javascript OBject</h1>
+		<h1>Example of fetching simple data from Javascript OBject</h1>
 			<div ng-controller="myController">
 				<p>{{names}}<br/>{{age}}</p>
 				<p ng-click="clicked()">test link</p>
@@ -31,24 +31,26 @@
 			</div>
 		<h1>Example of fetching data from JSON</h1>		
 			<div ng-controller="myController3">
-				
+				<input type="checkbox" name="hideColumn" ng-model="hideContactNum" /> Hide Contact Number
+				<input type="checkbox" name="hideImage" ng-model="hideImage" checked/> Display profile pictures
 				<table cellpadding="0" cellspacing="0" border="0" width="100%">
 					<tr class="header">
 						<th>Guest ID</th>'
 						<th>Guest Name</th>
-						<th>Contact Number</th>
+						<th ng-hide="hideContactNum">Contact Number</th>
 						<th>Location</th>
 						<th>Image</th>
 					</tr>
 					<tr ng-repeat="jsonData in getData" class="data-table">
 						<td>{{jsonData.guestId}}</td>
 						<td>{{jsonData.guestName}}</td>
-						<td>{{jsonData.contactNumber}}</td>
+						<td ng-hide="hideContactNum">{{jsonData.contactNumber}}</td>
 						<td>{{jsonData.location}}</td>
 						<td>
 							<table>
 								<tr>
-									<td><img ng-src="{{jsonData.image}}" /></td>
+									<td  ng-hide="hideImage"><img src="images/profile.jpg" width="120" height="120"/></td>
+									<td  ng-show="hideImage"><img ng-src="{{jsonData.image}}" /></td>
 									<td><button value="like" ng-click="likeFunc(jsonData);" class="likeBtn"></button><br/><span class="small">{{jsonData.like}}</span></td>
 									<td><button value="dislike" value="dislike"   ng-click="disLikeFunc(jsonData);" class="dislikeBtn"></button><br/><span class="small">{{jsonData.dislike}}</span></td>
 								</tr>
