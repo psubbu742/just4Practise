@@ -1,0 +1,73 @@
+<!DOCTYPE HTML>
+<html ng-app="myApp">
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<link rel="stylesheet" href="css/default.css" />
+	</head>
+	
+	<body>
+	<div id="wrapper">
+		<h1>Example of fetching data from Javascript OBject</h1>
+			<div ng-controller="myController">
+				<p>{{names}}<br/>{{age}}</p>
+				<p ng-click="clicked()">test link</p>
+			</div>
+		<h1>Example of fetching data from Javascript Array Object</h1>	
+			<div ng-controller="myController2">
+				
+				<table cellpadding="0" cellspacing="0" border="0" width="100%">
+					<tr class="header">
+						<th>Book Name</th>
+						<th>Author</th>
+						<th>Price</th>
+					</tr>
+					<tr ng-repeat="books in myBooks" class="data-table">
+						<td>{{books.bookName}}</td>
+						<td>{{books.author}}</td>
+						<td>{{books.price}}</td>
+					</tr>
+				</table>
+				
+			</div>
+		<h1>Example of fetching data from JSON</h1>		
+			<div ng-controller="myController3">
+				
+				<table cellpadding="0" cellspacing="0" border="0" width="100%">
+					<tr class="header">
+						<th>Guest ID</th>'
+						<th>Guest Name</th>
+						<th>Contact Number</th>
+						<th>Location</th>
+						<th>Image</th>
+					</tr>
+					<tr ng-repeat="jsonData in getData" class="data-table">
+						<td>{{jsonData.guestId}}</td>
+						<td>{{jsonData.guestName}}</td>
+						<td>{{jsonData.contactNumber}}</td>
+						<td>{{jsonData.location}}</td>
+						<td>
+							<table>
+								<tr>
+									<td><img ng-src="{{jsonData.image}}" /></td>
+									<td><button value="like" ng-click="likeFunc(jsonData);" class="likeBtn"></button><br/><span class="small">{{jsonData.like}}</span></td>
+									<td><button value="dislike" value="dislike"   ng-click="disLikeFunc(jsonData);" class="dislikeBtn"></button><br/><span class="small">{{jsonData.dislike}}</span></td>
+								</tr>
+							</table>
+						
+						</td>
+					</tr>
+				</table>
+				
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="JS/angular.min.js" ></script>
+	<script type="text/javascript" src="JS/angularApp.js" ></script>
+	<script type="text/javascript" src="JS/ngController.js" ></script>
+	
+		<script type="text/javascript">
+			
+		
+		</script>
+
+</html>

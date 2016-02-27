@@ -1,0 +1,63 @@
+body {
+	padding:0;
+	margin:0;
+	background-color:#fff;
+	font-size:12px;
+	font-family:arial;
+}
+#wrapper {
+	margin:0 auto;
+	width:65%;
+	border:1px solid #f4f4f4;
+	padding:10px;
+}
+h1 {
+	border-bottom:1px solid #363636;
+	background-color:#bf7340;
+	font-size:14px;
+	line-height:25px;
+	color:#fff;
+	text-indent:10px;
+}
+table {
+	border-collapse:collapse;
+	width:100%;
+	
+}
+table tr.header {
+	background-color:#213450;
+	color:#fff;
+	border-bottom:1px solid 333;
+	}
+table tr.data-table {
+	border-bottom:1px solid #999;
+}
+table tr.data-table:nth-child(even) {
+	background-color:#f2f2f2;
+	}
+table tr.data-table:nth-child(odd) {
+	background-color:#f9f9f9;
+}
+table tr td, table tr th {
+	padding:5px;
+	text-align:left;
+}
+table td img {
+	border-radius:5px;
+	border:1px solid #999;
+	
+}
+button { margin:0; padding:0; background:transparent;}
+.likeBtn {
+	width:25px; height:25px;
+	background:url("../images/like.gif") center top no-repeat;
+	padding:0; margin:0;
+}
+.dislikeBtn {
+	width:25px; height:25px;
+	background:url("../images/dislike.gif") center top no-repeat;
+	padding:0; margin:0;
+	}
+.small {
+	font-family:10px;
+}	
