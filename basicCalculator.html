@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>AngularJS Directives</title>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+	.calBody {
+		background-color:#fff;
+		border:3px solid #ccc;
+		border-radius:5px;
+		width:250px;
+		height:300px;
+		border-box:box-sizing;
+		padding:10px;
+	}
+	.display {
+		background-color:#f2f2f2;
+		border:1px solid #ccc;
+		border-radius:2px;
+		color:#333;
+		font-size:14px;
+		font-family:arial;
+		width:100%; height:50px;
+		border:none;
+	}
+	.btnNum {
+		padding:5px; 
+		border-radius:3px;
+		font-size:13px;
+		font-weight:bold;
+		background-color:#ccc;
+		width:45px;
+		height:40px;
+		margin:5px;
+		float:left;
+	}
+</style>
+</head>
+<body >
+  <h1>Calculator</h1>
+      
+   
+      <div ng-app="calApp"  ng-controller ="calcr" class="calBody">
+      		{{AngularJS}}
+     	 <div class="display">
+     	 <p>{{displayText}}</p>
+     	 <p>{{output}}</p>
+     	 </div>	
+      	<div class="calBtns">
+	      	<input type="button" name="btn1" class="btnNum"  value="1" ng-click="outputData(1);" />
+	      	<input type="button" name="btn2" class="btnNum"  value="2" ng-click="outputData(2);" />
+	      	<input type="button" name="btn2" class="btnNum"  value="3" ng-click="outputData(3);" />
+	      	<input type="button" name="btn4" class="btnNum"  value="4" ng-click="outputData(4);" />
+	      	<input type="button" name="btn5" class="btnNum"  value="5" ng-click="outputData(5);" />
+	      	<input type="button" name="btn6" class="btnNum"  value="6" ng-click="outputData(6);" />
+	      	<input type="button" name="btn7" class="btnNum"  value="7" ng-click="outputData(7);" />
+	      	<input type="button" name="btn8" class="btnNum"  value="8" ng-click="outputData(8);" />
+	      	<input type="button" name="btn9" class="btnNum"  value="9" ng-click="outputData(9);" />
+	      	<input type="button" name="btn0" class="btnNum"  value="0" ng-click="outputData(0);" />
+	      	
+	      		<input type="button" name="opr_plus" class="btnNum btnopr"  value="+" ng-click="btnOpr('add');" />
+	      		<input type="button" name="opr_sub" class="btnNum btnopr"  value="-" ng-click="btnOpr('sub');" />
+	      		<input type="button" name="opr_mul" class="btnNum btnopr"  value="x" ng-click="btnOpr('mul');" />
+	      		<input type="button" name="opr_div" class="btnNum btnopr"  value="/" ng-click="btnOpr('div');" />
+	      		<input type="button" name="opr_clear" class="btnopr"  value="C" ng-click="clearOutput();" />
+	      		<input type="button" name="opr_equal" class="btnNum btnopr"  value="=" ng-click="doOpr();" />
+	      	
+      	</div> 
+     </div>
+      
+      <script src = "http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+      
+      <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script> -->
+      <script type="text/javascript">
+     
+      var calApp = angular.module('calApp',[]);
+      calApp.controller('calcr',function($scope) {
+    	  $scope.AngularJS = "Heellooooo";
+    	  $scope.output = "0";
+    	  $scope.displayText="";
+    	  $scope.oprVal=null;
+    	  $scope.val1 = null;
+    	  $scope.val2 = null;
+    	  
+    	  
+    	  $scope.outputData = function(btn){
+    		  
+    		  $scope.output = $scope.output + String(btn);
+    		  if($scope.oprVal != null)
+    		  { $scope.val2 =  Number($scope.output);
+    		  	$scope.displayText += String(btn);	
+    		  }
+    		  else
+    		  { $scope.val1 = Number($scope.output);
+    		  }
+    		  
+    	  };
+    	  
+    	  $scope.btnOpr = function(opr) {
+    		  $scope.displayText = $scope.output;
+    		  $scope.output = "";
+    		  $scope.oprVal = opr;
+    		  $scope.displayText += String(opr);
+    	  };
+    	  
+    	  
+    	  $scope.doOpr = function() {
+    		  if( $scope.oprVal == 'add')
+    			  $scope.output = $scope.val1 + $scope.val2;
+    		  else if( $scope.oprVal == 'sub')
+    			  $scope.output =  $scope.val1 - $scope.val2;
+    		  else if( $scope.oprVal == 'mul')
+    			  $scope.output =  $scope.val1 * $scope.val2;
+    		  else if( $scope.oprVal == 'div')
+    			  $scope.output =  $scope.val1 / $scope.val2;
+    	  };
+    	  
+    	  $scope.clearOutput = function()
+    	  {
+    		  $scope.output = "0";
+    		  $scope.val1 = null;
+        	  $scope.val2 = null;
+        	  $scope.oprVal=null;
+        	  $scope.displayText="";      
+    	  };
+      });
+      	
+   
+      </script>
+      
+      
+</body>
+</html>
