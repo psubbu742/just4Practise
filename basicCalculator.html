@@ -5,13 +5,16 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
+body {
+	font-family:arial;
+}
 	.calBody {
-		background-color:#fff;
-		border:3px solid #ccc;
+		background-color:#333;
+		border:3px solid #666;
 		border-radius:5px;
 		width:250px;
-		height:300px;
-		border-box:box-sizing;
+		height:320px;
+		box-sizing: border-box;
 		padding:10px;
 	}
 	.display {
@@ -21,19 +24,50 @@
 		color:#333;
 		font-size:14px;
 		font-family:arial;
-		width:100%; height:50px;
+		width:100%; height:70px;
 		border:none;
+		padding:10px;
+		margin-bottom:10px;
+		box-sizing: border-box;
 	}
 	.btnNum {
 		padding:5px; 
 		border-radius:3px;
-		font-size:13px;
-		font-weight:bold;
-		background-color:#ccc;
+		font-size:16px;
+		font-weight:normal;
+		background-color:#333;
 		width:45px;
 		height:40px;
 		margin:5px;
 		float:left;
+		color:#f2f2f2;
+		outline: none;
+		border:none;
+		
+	}
+	.btnNum:hover {
+		background-color:#434343;
+		transition: all 0.15s linear 0s;
+	}
+	.btnClear {
+		
+	}
+	.display p{ 
+		padding: 0; 
+		margin:0;
+		line-height:30px;
+		text-align:right;
+		
+	}
+	.display .big {
+		font-size:20px;
+		font-style:italic;
+		line-height:40px;
+	}
+	.small {
+	font-size:10px;
+	text-align:center;
+	color:#fff;
 	}
 </style>
 </head>
@@ -42,30 +76,35 @@
       
    
       <div ng-app="calApp"  ng-controller ="calcr" class="calBody">
-      		{{AngularJS}}
+      		
      	 <div class="display">
      	 <p>{{displayText}}</p>
-     	 <p>{{output}}</p>
+     	 <p class="big">{{output}}</p>
      	 </div>	
+     	 <div class="small"> {{AngularJS}}</div>
       	<div class="calBtns">
 	      	<input type="button" name="btn1" class="btnNum"  value="1" ng-click="outputData(1);" />
 	      	<input type="button" name="btn2" class="btnNum"  value="2" ng-click="outputData(2);" />
 	      	<input type="button" name="btn2" class="btnNum"  value="3" ng-click="outputData(3);" />
+	      	
+	      	<input type="button" name="opr_plus" class="btnNum btnopr"  value="+" ng-click="btnOpr('+');" />
+	      	
 	      	<input type="button" name="btn4" class="btnNum"  value="4" ng-click="outputData(4);" />
 	      	<input type="button" name="btn5" class="btnNum"  value="5" ng-click="outputData(5);" />
 	      	<input type="button" name="btn6" class="btnNum"  value="6" ng-click="outputData(6);" />
+	      	
+	      	<input type="button" name="opr_sub" class="btnNum btnopr"  value="-" ng-click="btnOpr('-');" />
+	      	
 	      	<input type="button" name="btn7" class="btnNum"  value="7" ng-click="outputData(7);" />
 	      	<input type="button" name="btn8" class="btnNum"  value="8" ng-click="outputData(8);" />
 	      	<input type="button" name="btn9" class="btnNum"  value="9" ng-click="outputData(9);" />
+	      	
+	      	<input type="button" name="opr_mul" class="btnNum btnopr"  value="x" ng-click="btnOpr('*');" />
+	      	
+	      	<input type="button" name="opr_clear" class="btnNum btnClear"  value="C" ng-click="clearOutput();" />
 	      	<input type="button" name="btn0" class="btnNum"  value="0" ng-click="outputData(0);" />
-	      	
-	      		<input type="button" name="opr_plus" class="btnNum btnopr"  value="+" ng-click="btnOpr('add');" />
-	      		<input type="button" name="opr_sub" class="btnNum btnopr"  value="-" ng-click="btnOpr('sub');" />
-	      		<input type="button" name="opr_mul" class="btnNum btnopr"  value="x" ng-click="btnOpr('mul');" />
-	      		<input type="button" name="opr_div" class="btnNum btnopr"  value="/" ng-click="btnOpr('div');" />
-	      		<input type="button" name="opr_clear" class="btnopr"  value="C" ng-click="clearOutput();" />
-	      		<input type="button" name="opr_equal" class="btnNum btnopr"  value="=" ng-click="doOpr();" />
-	      	
+	      	<input type="button" name="opr_equal" class="btnNum btnopr"  value="=" ng-click="doOpr();" />	
+	      	<input type="button" name="opr_div" class="btnNum btnopr"  value="/" ng-click="btnOpr('/');" />	
       	</div> 
      </div>
       
@@ -76,27 +115,41 @@
      
       var calApp = angular.module('calApp',[]);
       calApp.controller('calcr',function($scope) {
-    	  $scope.AngularJS = "Heellooooo";
+    	  $scope.AngularJS = "Subbu's";
     	  $scope.output = "0";
     	  $scope.displayText="";
     	  $scope.oprVal=null;
     	  $scope.val1 = null;
     	  $scope.val2 = null;
+    	  $scope.disVal = 0;
     	  
-    	  
+    	/* to display entered data on screen */  
     	  $scope.outputData = function(btn){
-    		  
-    		  $scope.output = $scope.output + String(btn);
-    		  if($scope.oprVal != null)
-    		  { $scope.val2 =  Number($scope.output);
-    		  	$scope.displayText += String(btn);	
-    		  }
-    		  else
-    		  { $scope.val1 = Number($scope.output);
-    		  }
+    		
+    		if($scope.disVal == 0)
+    		{
+	    		if($scope.output == 0)
+	    			 $scope.output = String(btn);
+	    		else
+	    		  $scope.output = $scope.output + String(btn);
+	    		
+	    		  if($scope.oprVal != null)
+	    		  { $scope.val2 =  Number($scope.output);
+	    		  	$scope.displayText += String(btn);	
+	    		  }
+	    		  else
+	    		  { $scope.val1 = Number($scope.output);
+	    		  }
+    		}
+    		else
+    			{
+    				 $scope.displayText=$scope.output
+    			
+    			}
     		  
     	  };
     	  
+    	/* to check what operator user has chosses */  
     	  $scope.btnOpr = function(opr) {
     		  $scope.displayText = $scope.output;
     		  $scope.output = "";
@@ -106,14 +159,16 @@
     	  
     	  
     	  $scope.doOpr = function() {
-    		  if( $scope.oprVal == 'add')
+    		  if( $scope.oprVal == '+')
     			  $scope.output = $scope.val1 + $scope.val2;
-    		  else if( $scope.oprVal == 'sub')
+    		  else if( $scope.oprVal == '-')
     			  $scope.output =  $scope.val1 - $scope.val2;
-    		  else if( $scope.oprVal == 'mul')
+    		  else if( $scope.oprVal == '*')
     			  $scope.output =  $scope.val1 * $scope.val2;
-    		  else if( $scope.oprVal == 'div')
+    		  else if( $scope.oprVal == '/')
     			  $scope.output =  $scope.val1 / $scope.val2;
+    		  
+    		  $scope.displayText = "";
     	  };
     	  
     	  $scope.clearOutput = function()
@@ -122,7 +177,8 @@
     		  $scope.val1 = null;
         	  $scope.val2 = null;
         	  $scope.oprVal=null;
-        	  $scope.displayText="";      
+        	  $scope.displayText="";  
+        	  $scope.disVal = 0;
     	  };
       });
       	
